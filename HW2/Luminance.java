@@ -1,9 +1,8 @@
-package OOP.HW2.src;
+package OOP.HW2;
 
 import OOP.HW1.StdOut;
 
 import java.awt.*;
-import java.util.Scanner;
 
 public class Luminance {
     public static double lum(Color rgb) {

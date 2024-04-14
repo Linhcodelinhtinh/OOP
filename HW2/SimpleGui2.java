@@ -1,4 +1,4 @@
-package OOP.HW2.src;
+package OOP.HW2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
