@@ -8,7 +8,8 @@ public class SimpleGui2 implements ActionListener {
     private JButton button;
 
     public void go() {
-        button = new JButton("click me");
+        button = new JButton("click me\n");
+//        button.setSize(350, 900);
         button.addActionListener(this);
 
         JFrame frame = new JFrame();
