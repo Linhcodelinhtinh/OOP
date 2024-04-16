@@ -1,5 +1,7 @@
 package OOP.HW2;
 
+import OOP.Needed_Library.Picture;
+
 import java.awt.Color;
 
 public class No2FlipX {

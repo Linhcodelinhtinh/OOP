@@ -1,7 +1,5 @@
 package OOP.HW2;
 
-import OOP.HW1.StdOut;
-
 import java.awt.*;
 
 public class Luminance {
@@ -17,7 +15,7 @@ public class Luminance {
         int g = Integer.parseInt(args[1]);
         int b = Integer.parseInt(args[2]);
         Color rgb = new Color(r, g, b);
-        //System.out.println(lum(rgb));
-        StdOut.println(lum(rgb));
+        System.out.println(lum(rgb));
+//        StdOut.println(lum(rgb));
     }
 }
