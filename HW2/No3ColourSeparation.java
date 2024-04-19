@@ -12,12 +12,12 @@ public class No3ColourSeparation {
         int height = picture.height();
 
         // create three blank pictures of the same dimension
-        Picture pictureR = new Picture(640, 1080);
-        Picture pictureG = new Picture(1280, 1080);
-        Picture pictureB = new Picture(1920, 1080);
+        Picture pictureR = new Picture(width, height);
+        Picture pictureG = new Picture(width, height);
+        Picture pictureB = new Picture(width, height);
 
         // separate colors
-        for (int col = 0; col < width/3; col++) {
+        for (int col = 0; col <width/3; col++) {
             for (int row = 0; row < height; row++) {
                 Color color = picture.get(col, row);
                 int r = color.getRed();
@@ -28,7 +28,7 @@ public class No3ColourSeparation {
                 //pictureB.set(col, row, new Color(0, 0, b));
             }
         }
-        for (int col = width/3 +1; col < 2*width/3; col++) {
+        for (int col = width/3; col <2*width/3; col++) {
             for (int row = 0; row < height; row++) {
                 Color color = picture.get(col, row);
                 //int r = color.getRed();
@@ -39,7 +39,7 @@ public class No3ColourSeparation {
                 //pictureB.set(col, row, new Color(0, 0, b));
             }
         }
-        for (int col = 2*width/3 +1; col < width; col++) {
+        for (int col = 2*width/3; col <width; col++) {
             for (int row = 0; row < height; row++) {
                 Color color = picture.get(col, row);
                 //int r = color.getRed();
@@ -52,8 +52,11 @@ public class No3ColourSeparation {
         }
 
         // display each picture in its own window
-        pictureR.show();
-        pictureG.show();
-        pictureB.show();
+//        pictureR.show();
+//        pictureG.show();
+//        pictureB.show();
+        Picture picture1 = new Picture(width, height);
+        picture1 = picture1.AddPicture(pictureR, pictureG, pictureB);
+        picture1.show();
     }
 }
