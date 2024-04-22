@@ -12,7 +12,7 @@ public class game_play {
         System.out.println("Welcome To Dungeon Maze");
         System.out.println("Please Input Your Name ");
         player.name = UI.nextLine();
-        System.out.format("%s is a brave adventurer", name);
+        System.out.print(player.name +" is a brave adventurer");
         System.out.println("");
         Thread.sleep(3000);
         System.out.println("They were sent on a task to check on one of");
