@@ -1,4 +1,4 @@
-package OOP.HW2;
+package OOP.HW2.Chap3_IPIJ;
 
 public class No1ReverseString {
     public static String reverse(String str) {

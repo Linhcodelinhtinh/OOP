@@ -1,4 +1,4 @@
-package OOP.HW2;
+package OOP.HW2.Chap3_IPIJ;
 
 import OOP.Needed_Library.Picture;
 

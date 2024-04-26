@@ -1,4 +1,4 @@
-package OOP.HW2;
+package OOP.HW2.String_code;
 
 import java.util.Scanner;
 import java.util.HashSet;
