@@ -1,6 +1,6 @@
 package OOP.expression;
 
-public class Square extends Expressions {
+public class Square implements Expressions {
     private Expressions expression;
     public Square(Expressions expression) {
         this.expression = expression;

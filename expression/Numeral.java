@@ -2,7 +2,7 @@ package OOP.expression;
 
 //import OOP.Expressions;
 
-public class Numeral extends Expressions {
+public class Numeral implements Expressions {
     private int value;
 
     public Numeral(int value) {

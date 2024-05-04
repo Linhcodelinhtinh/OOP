@@ -2,7 +2,7 @@ package OOP.expression;
 
 //import java.beans.Expression;
 
-public class Addition extends Expressions{
+public class Addition implements Expressions{
     private Expressions left, right;
     public Addition(Expressions left, Expressions right) {
         this.left = left;

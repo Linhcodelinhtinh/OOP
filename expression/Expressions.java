@@ -1,7 +1,7 @@
 package OOP.expression;
 
-abstract public class Expressions {
-    abstract public int evaluate();
+public interface Expressions {
+    int evaluate();
 }
 
 //public int squareEvaluate{
