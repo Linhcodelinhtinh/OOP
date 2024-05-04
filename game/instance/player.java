@@ -1,4 +1,4 @@
-package OOP.game;
+package OOP.game.instance;
 
 public class player {
 

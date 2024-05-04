@@ -1,19 +1,28 @@
 package OOP.game;
 
 import OOP.Needed_Library.StdOut;
+import OOP.game.state.GameStateManager;
+import OOP.game.util.KeyHandler;
+import OOP.game.util.MouseHandler;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
     public static int width;
     public static int height;
+
+    private MouseHandler mouse;
+    private KeyHandler key;
+
     private Thread thread;
     private BufferedImage image;
     private Graphics2D graphics;
     private boolean is_running = false;
 
+    private GameStateManager gsm;
     public GamePanel(int width, int height) {
         this.width = width;
         this.height = height;
@@ -30,14 +39,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void initial() {
+    public void initialize() {
         is_running = true;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics = (Graphics2D) image.getGraphics();
+        mouse = new MouseHandler();
+        key = new KeyHandler(this);
+        gsm = new GameStateManager();
     }
 
     public void run() {
-        initial();
+        initialize();
 
         int NeededUpdates = 5;
 
@@ -52,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
                 lastUpdateTime = currentTime;
                 made_updates++;
             }
-            input();
+            input(mouse, key);
             render();
             draw();
             lastRenderTime = currentTime;
@@ -66,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
             {
                 Thread.yield();
                 try{
-                    Thread.sleep(1);
+                    Thread.sleep(1); // is that really necessary ?
 
                 } catch(InterruptedException e) {
                     System.out.println("Thread interrupted");
@@ -77,16 +89,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
+        gsm.update();
     }
-    public void input() {
-
+    public void input(MouseHandler mouse, KeyHandler key) {
+        gsm.input(mouse, key);
     }
     public void render() {
         if(graphics != null) {
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, width, height);
         }
+        gsm.render(graphics);
     }
 
     public void draw() {
