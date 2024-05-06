@@ -43,38 +43,56 @@ public class GamePanel extends JPanel implements Runnable {
         is_running = true;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         graphics = (Graphics2D) image.getGraphics();
-        mouse = new MouseHandler();
+        mouse = new MouseHandler(this);
         key = new KeyHandler(this);
         gsm = new GameStateManager();
     }
 
     public void run() {
         initialize();
+        final double standardRefreshRate = 60.0;
+        final double TBU = 1e9 / standardRefreshRate; // Time before update
 
         int NeededUpdates = 5;
 
         double lastUpdateTime = System.nanoTime();
         double lastRenderTime;
-        int lastSecondTime = (int) (lastUpdateTime / 1000000000);
+
+        final double TARGET_FPS = 60.0;
+        final double TTBU = 1e9 / TARGET_FPS; // Total time before update
+
+        int frames = 0;
+        int previousFrames = 0;
+        int lastSecondTime = (int) (lastUpdateTime / 1e9);
         while (is_running) {
             double currentTime = System.nanoTime();
             int made_updates = 0;
-            while ((made_updates < NeededUpdates) && (currentTime - lastUpdateTime > 1000000000)) {
+            while ((made_updates < NeededUpdates) && (currentTime - lastUpdateTime > TBU)) {
                 update();
-                lastUpdateTime = currentTime;
-                made_updates++;
+                input(mouse, key);
+                lastUpdateTime += TBU;
+                made_updates++; // do increment on the number of updates that have been made
             }
+            if(currentTime - lastUpdateTime > TBU) {
+                lastUpdateTime = currentTime - TBU;
+            }
+
             input(mouse, key);
             render();
             draw();
             lastRenderTime = currentTime;
+            frames += 1;
 
-            int thisSecond = (int) ((lastUpdateTime) / 1000000000);
+            int thisSecond = (int) ((lastUpdateTime) / 1e9);
             if(thisSecond > lastSecondTime) {
-                System.out.println("Second: " + thisSecond);
+                if(frames != previousFrames) {
+                    System.out.println("Second: " + thisSecond + " FPS:" + frames);
+                    previousFrames = frames;
+                }
+                frames = 0;
                 lastSecondTime = thisSecond;
             }
-            while(currentTime - lastRenderTime > 1000000000 )
+            while(currentTime - lastRenderTime < TTBU && currentTime - lastUpdateTime < TBU)
             {
                 Thread.yield();
                 try{
@@ -103,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void draw() {
-        Graphics graphics2 = (Graphics) this.getGraphics();
+        Graphics graphics2 = this.getGraphics();
         graphics2.drawImage(image, 0, 0, width, height, null);
         graphics2.dispose();
     }

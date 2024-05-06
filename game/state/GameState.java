@@ -8,7 +8,7 @@ import java.awt.*;
 public abstract class GameState
 {
     private GameStateManager gsm;
-    public GameState(){
+    public GameState(GameStateManager gsm){
         this.gsm = gsm;
     }
     public abstract void update();

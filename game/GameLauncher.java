@@ -1,14 +1,12 @@
 package OOP.game;
-import javax.swing.*;
-import java.util.Scanner;
 
-public class Game_Launcher {
+public class GameLauncher {
     public void Game_launcher(){
         new Window();
     }
 
     public static void main(String[] args) throws InterruptedException {
-        new Game_Launcher().Game_launcher();
+        new GameLauncher().Game_launcher();
 
 //        Scanner sc = new Scanner(System.in);
 //        String name = "";

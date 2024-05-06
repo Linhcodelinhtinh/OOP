@@ -8,7 +8,7 @@ import java.awt.*;
 public class PlayState extends GameState{
     public static int x =0, y=0;
     public PlayState(GameStateManager gsm){
-        super(/*gsm*/);
+        super(gsm);
     }
     public void update(){
 
