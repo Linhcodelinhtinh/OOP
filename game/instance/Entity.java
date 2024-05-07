@@ -44,7 +44,7 @@ public abstract class Entity {
         position = vec;
         this.size = size;
 
-        move = new Animation();
+//        move = new Animation();
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
     }
 
@@ -84,7 +84,7 @@ public abstract class Entity {
     }
     public void update(){
         animate();
-        setHitBox();
+//        setHitBox();
         move.update();
     }
 
