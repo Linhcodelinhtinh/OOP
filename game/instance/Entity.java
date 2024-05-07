@@ -2,6 +2,7 @@ package OOP.game.instance;
 
 import OOP.game.graphics.Animation;
 import OOP.game.graphics.Sprite;
+import OOP.game.util.CollisionProcess;
 import OOP.game.util.KeyHandler;
 import OOP.game.util.MouseHandler;
 import OOP.game.util.Vector2D;
@@ -26,8 +27,8 @@ public abstract class Entity {
     protected boolean down;
     protected boolean left;
     protected boolean right;
+    protected boolean attack;
 
-    protected int attack;
     protected int attackSpeed;
     protected int timePerAttack;
     protected double maxSpeed;
@@ -35,17 +36,26 @@ public abstract class Entity {
     protected double deceleration;
     protected double dx;
     protected double dy;
-
-
-
+    protected CollisionProcess hitBounds;
+    protected CollisionProcess bounds;
 
     public Entity(Sprite sprite, Vector2D vec, int size) {
         this.sprite = sprite;
         position = vec;
         this.size = size;
 
+        bounds = new CollisionProcess(vec, size, size);
+        hitBounds = new CollisionProcess(new Vector2D(vec.x + size/2, vec.y), size, size);
+
 //        move = new Animation();
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
+    }
+
+    public Animation getMove() {
+        return move;
+    }
+    public CollisionProcess getBounds(){
+        return bounds;
     }
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
@@ -53,6 +63,23 @@ public abstract class Entity {
         move.setFrames(frames);
         move.setDelay(delay);
     }
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+    public void setSize(int temp){
+        size = temp;
+    }
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+    public void setDeceleration(double deceleration) {
+        this.deceleration = deceleration;
+    }
+
+
     public void animate(){
         if(up){
             if(currentAnimation != UP || move.getDelay() == -1) {
@@ -82,9 +109,27 @@ public abstract class Entity {
     public double getSize(){
         return size;
     }
+    private void setHitBox(){
+        if(up){
+            hitBounds.setyOffset(-size/2);
+            hitBounds.setxOffset(-size/2);
+        }
+        else if(down){
+            hitBounds.setyOffset(size/2);
+            hitBounds.setxOffset(-size/2);
+        }
+        else if(left){
+            hitBounds.setxOffset(-size);
+            hitBounds.setyOffset(0);
+        }
+        else if(right){
+            hitBounds.setxOffset(0);
+            hitBounds.setyOffset(0);
+        }
+    }
     public void update(){
         animate();
-//        setHitBox();
+        setHitBox();
         move.update();
     }
 
