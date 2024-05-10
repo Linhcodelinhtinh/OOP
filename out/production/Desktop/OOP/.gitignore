@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+out/production/Desktop/GIMP 2.10.38.lnk
+out/production/Desktop/MetaTFT.lnk
+out/production/Desktop/MetaTFT.lnk
+/out
+out/production/Desktop/MetaTFT.lnk
+*.lnk

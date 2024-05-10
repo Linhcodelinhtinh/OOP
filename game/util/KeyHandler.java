@@ -1,15 +1,15 @@
 package OOP.game.util;
 
-    import OOP.game.GamePanel;
+import OOP.game.GamePanel;
 
-    import java.awt.event.KeyEvent;
-    import java.awt.event.KeyListener;
-    import java.util.ArrayList;
-    import java.util.List;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class KeyHandler implements KeyListener {
     public static List<KeyListen> listeners = new ArrayList<KeyListen>();
-    public class KeyListen {
+    public static class KeyListen { // so it should be static
         public int presses, absorbs;
         public boolean down, clicked;
         public KeyListen() {
@@ -17,19 +17,10 @@ public class KeyHandler implements KeyListener {
         }
         public void toggle(boolean pressed){
             if(pressed != down){  //not really sure if these lines should be presses or pressed
-                down = pressed ;  //and clicked& down should be boolean or int
+                down = pressed ;  //and clicked& down should be boolean or int, but somehow it works well so ... yeah =)))
             }
             if(pressed){
-                presses ++;
-            }
-        }
-        public void tick(){
-            if(absorbs < presses){
-                absorbs ++;
-                clicked = true;
-            }
-            else{
-                clicked = false;
+                presses++;
             }
         }
     }
@@ -44,17 +35,6 @@ public class KeyHandler implements KeyListener {
 
     public KeyHandler(GamePanel gamePanel) {
         gamePanel.addKeyListener(this);
-    }
-
-    public void releaseALl(){
-        for(int i = 0; i < listeners.size(); i++){
-            listeners.get(i).down = false;
-        }
-    }
-    public void tick(){
-        for (int i = 0; i < listeners.size(); i++){
-            listeners.get(i).tick();
-        }
     }
 
     public void toggle(KeyEvent e, boolean pressed){
