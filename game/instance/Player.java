@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity {
     protected GamePanel gamePanel;
@@ -28,26 +29,26 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-            u1 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u1.png"));
-            u2 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u2.png"));
-            u3 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u3.png"));
-            u4 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u4.png"));
-            u5 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u5.png"));
-            d1 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d1.png"));
-            d2 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d2.png"));
-            d3 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d3.png"));
-            d4 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d4.png"));
-            d5 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d5.png"));
-            r1 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r1.png"));
-            r2 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r2.png"));
-            r3 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r3.png"));
-            r4 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r4.png"));
-            r5 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r5.png"));
-            l1 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l1.png"));
-            l2 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l2.png"));
-            l3 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l3.png"));
-            l4 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l4.png"));
-            l5 = ImageIO.read(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l5.png"));
+            u1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u1.png")));
+            u2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u2.png")));
+            u3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u3.png")));
+            u4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u4.png")));
+            u5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u5.png")));
+            d1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d1.png")));
+            d2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d2.png")));
+            d3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d3.png")));
+            d4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d4.png")));
+            d5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d5.png")));
+            r1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r1.png")));
+            r2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r2.png")));
+            r3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r3.png")));
+            r4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r4.png")));
+            r5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r5.png")));
+            l1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l1.png")));
+            l2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l2.png")));
+            l3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l3.png")));
+            l4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l4.png")));
+            l5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l5.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,7 +152,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2d.drawImage(image, x, y, null);
+        g2d.drawImage(image, x, y,gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
 //    public void update(double time) {

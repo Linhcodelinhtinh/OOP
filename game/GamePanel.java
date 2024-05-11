@@ -1,6 +1,7 @@
 package OOP.game;
 
 import OOP.game.instance.Player;
+import OOP.game.instance.tiles.BlockManager;
 import OOP.game.util.KeyHandler;
 
 import javax.swing.*;
@@ -11,15 +12,16 @@ public class GamePanel extends JPanel implements Runnable{
     final int orTileSize = 16;
     final int scale = 3;
     public final int tileSize = orTileSize * scale; // also charater size
-    final int screenCol = 24;
-    final int screenRow = 16;
-    final int screenWidth = screenCol * tileSize;
-    final int screenHeight = screenRow * tileSize;
-
+    public final int screenCol = 32;
+    public final int screenRow = 16;
+    public final int screenWidth = screenCol * tileSize;
+    public final int screenHeight = screenRow * tileSize;
+    // set up stuffs
     final int FPS = 60;
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler(this);
     Player player = new Player(this, keyHandler);
+    BlockManager blockManager = new BlockManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -69,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        blockManager.draw(g2d);
         player.draw(g2d);
         g2d.dispose();
     }
