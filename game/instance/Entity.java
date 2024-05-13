@@ -3,18 +3,27 @@ package OOP.game.instance;
 import OOP.game.GamePanel;
 import OOP.game.util.KeyHandler;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
 
-    protected int x, y;
-    protected int speed;
+    public int x, y;
+    public int speed;
     public String direction;
 
     BufferedImage r1, r2, r3, r4, r5, l1, l2, l3, l4, l5, u1, u2, u3, u4, u5, d1, d2, d3, d4, d5;
 
     public int spriteCount = 0;
     public int spriteNum = 1;
+
+    public Rectangle bounds;
+    public Rectangle defaultBounds;
+    public boolean collide = true;
+
+    public int maxHP;
+    public int currentHP;
+
 //    private final int UP = 3;
 //    private final int DOWN = 2;
 //    private final int LEFT = 1;

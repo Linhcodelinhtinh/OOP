@@ -18,60 +18,72 @@ public class Player extends Entity {
         this.keyHandler = keyHandler;
         setDefaultValue();
         getPlayerImage();
+        bounds = new Rectangle(8, 16, 32, 32);
+        defaultBounds = new Rectangle(8, 16, 32, 32);
     }
 
     public void setDefaultValue() {
+        // start position and status
         x = 100;
         y = 100;
         speed = 3;
         direction = "right";
+        maxHP = 6;
+        currentHP = maxHP;
+
     }
 
     public void getPlayerImage() {
         try {
-            u1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u1.png")));
-            u2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u2.png")));
-            u3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u3.png")));
-            u4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u4.png")));
-            u5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_u5.png")));
-            d1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d1.png")));
-            d2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d2.png")));
-            d3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d3.png")));
-            d4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d4.png")));
-            d5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_d5.png")));
-            r1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r1.png")));
-            r2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r2.png")));
-            r3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r3.png")));
-            r4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r4.png")));
-            r5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_r5.png")));
-            l1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l1.png")));
-            l2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l2.png")));
-            l3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l3.png")));
-            l4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l4.png")));
-            l5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/Character_l5.png")));
+            u1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_u1.png")));
+            u2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_u2.png")));
+            u3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_u3.png")));
+            u4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_u4.png")));
+            u5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_u5.png")));
+            d1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_d1.png")));
+            d2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_d2.png")));
+            d3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_d3.png")));
+            d4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_d4.png")));
+            d5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_d5.png")));
+            r1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_r1.png")));
+            r2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_r2.png")));
+            r3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_r3.png")));
+            r4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_r4.png")));
+            r5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_r5.png")));
+            l1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l1.png")));
+            l2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l2.png")));
+            l3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l3.png")));
+            l4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l4.png")));
+            l5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l5.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-
-            if (keyHandler.up.down) { // "down" means the button get pressed
-                direction = "up";
-                y -= speed;
+        if(x>=27*48 && x <=29*48 && y>= 13.5*48 && y <=15*48){
+            x = gamePanel.tileSize*29;
+            y = gamePanel.tileSize*3;
+            System.out.println("You got teleport!");
+        }
+        if (keyHandler.up.down) { // "down" means the button get pressed
+            direction = "up";
+        }
+        if (keyHandler.down.down) {
+            direction = "down";
+        }
+        if (keyHandler.left.down) {
+            direction = "left";
+        }
+        if (keyHandler.right.down) {
+            direction = "right";
+        }
+        if(keyHandler.enter.down){
+            if(x >= 29*48 && x<=31*48 && y >= 13*48 && y<=15*48){
+                direction = "";
+                System.out.println("You win!");
             }
-            if (keyHandler.down.down) {
-                direction = "down";
-                y += speed;
-            }
-            if (keyHandler.left.down) {
-                direction = "left";
-                x -= speed;
-            }
-            if (keyHandler.right.down) {
-                direction = "right";
-                x += speed;
-            }
+        }
         if (keyHandler.down.down || keyHandler.up.down || keyHandler.left.down || keyHandler.right.down) {
             spriteCount++;
             if (spriteCount > 6) {
@@ -88,8 +100,22 @@ public class Player extends Entity {
                 }
                 spriteCount = 0;
             }
-        }
-        else{
+            collide = false;
+            gamePanel.collision.checkCollision(this);
+
+            gamePanel.eventHandler.eventChecker();
+            if (!collide) {
+                if (Objects.equals(direction, "up"))
+                    y -= speed;
+                if(Objects.equals(direction, "left"))
+                    x -= speed;
+                if(Objects.equals(direction, "right"))
+                    x += speed;
+
+                if(Objects.equals(direction, "down"))
+                    y += speed;
+            }
+        } else {
             spriteNum = 1;
         }
     }
@@ -152,7 +178,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2d.drawImage(image, x, y,gamePanel.tileSize, gamePanel.tileSize, null);
+        g2d.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 
 //    public void update(double time) {

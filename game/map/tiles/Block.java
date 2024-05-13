@@ -1,4 +1,4 @@
-package OOP.game.instance.tiles;
+package OOP.game.map.tiles;
 
 import java.awt.image.BufferedImage;
 

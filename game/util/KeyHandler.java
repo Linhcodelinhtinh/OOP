@@ -30,8 +30,8 @@ public class KeyHandler implements KeyListener {
     public KeyListen right = new KeyListen() {};
     public KeyListen enter = new KeyListen() {};
     public KeyListen exit = new KeyListen() {};
-    public KeyListen menu = new KeyListen() {};
-    public KeyListen attack = new KeyListen() {};
+//    public KeyListen menu = new KeyListen() {};
+//    public KeyListen attack = new KeyListen() {};
 
     public KeyHandler(GamePanel gamePanel) {
         gamePanel.addKeyListener(this);
@@ -53,15 +53,15 @@ public class KeyHandler implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             enter.toggle(pressed);
         }
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            exit.toggle(pressed);
-        }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            attack.toggle(pressed);
-        }
-        if(e.getKeyCode() == KeyEvent.VK_M){
-            menu.toggle(pressed);
-        }
+//        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+//            exit.toggle(pressed);
+//        }
+//        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+//            attack.toggle(pressed);
+//        }
+//        if(e.getKeyCode() == KeyEvent.VK_M){
+//            menu.toggle(pressed);
+//        }
 
     }
     @Override

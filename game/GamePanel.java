@@ -1,7 +1,10 @@
 package OOP.game;
 
+import OOP.enviroment_effects.EnvironmentManager;
+import OOP.game.event.EventHandler;
 import OOP.game.instance.Player;
-import OOP.game.instance.tiles.BlockManager;
+import OOP.game.map.Collision;
+import OOP.game.map.tiles.BlockManager;
 import OOP.game.util.KeyHandler;
 
 import javax.swing.*;
@@ -20,8 +23,13 @@ public class GamePanel extends JPanel implements Runnable{
     final int FPS = 60;
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler(this);
-    Player player = new Player(this, keyHandler);
-    BlockManager blockManager = new BlockManager(this);
+    public Player player = new Player(this, keyHandler);
+    public BlockManager blockManager = new BlockManager(this);
+    public Collision collision = new Collision(this);
+    public EventHandler eventHandler = new EventHandler(this);
+    EnvironmentManager environmentManager = new EnvironmentManager(this);
+//    public SuperClass[] objectx = new SuperClass[10];
+//    objectx[1] = new obj_HP;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -45,10 +53,8 @@ public class GamePanel extends JPanel implements Runnable{
         while(gameThread.isAlive()){
             // update game information
             update();
-
             // redraw things
             repaint();
-
             try {
                 double deltaTime = nextDrawTime - System.nanoTime();
                 deltaTime /= 1e6; // convert deltaTime appropriate data type "long milis"
@@ -67,12 +73,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
+        environmentManager.light.update(3000);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         blockManager.draw(g2d);
+//        HPManager.draw(g2d);
         player.draw(g2d);
+        environmentManager.draw(g2d);
         g2d.dispose();
     }
 
