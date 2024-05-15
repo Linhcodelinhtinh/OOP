@@ -1,6 +1,8 @@
 package OOP.game.map.tiles;
 
 import OOP.game.GamePanel;
+import OOP.game.util.KeyHandler;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -63,7 +65,7 @@ public class BlockManager {
             blocks[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile3.png")));
             blocks[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/left_wall.png")));
             blocks[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/right_wall.png")));
-
+            blocks[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile5.png")));
 
             blocks[1].isCollide = true;
             blocks[3].isCollide = true;

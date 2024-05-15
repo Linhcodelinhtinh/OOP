@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Player extends Entity {
     protected GamePanel gamePanel;
-    protected KeyHandler keyHandler;
+    public KeyHandler keyHandler;
     public String state;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
@@ -19,21 +19,21 @@ public class Player extends Entity {
         this.keyHandler = keyHandler;
         setDefaultValue();
         getPlayerImage();
-        bounds = new Rectangle(8, 16, 32, 32);
-        defaultBounds = new Rectangle(8, 16, 32, 32);
+        bounds = new Rectangle(8, 16, 32, 24);
+        defaultBounds = new Rectangle(8, 16, 32, 24);
     }
 
     public void setDefaultValue() {
         // start position and status
         x = 28 * 48; //testing case
         y = 14 * 38;
-//        x = 100;
+//        x = 100; // exact starting point
 //        y = 100;
         speed = 3;
         direction = "right";
         maxHP = 6;
         currentHP = maxHP;
-        state = "playing";
+        state = "play";
     }
 
     public void getPlayerImage() {
@@ -59,12 +59,64 @@ public class Player extends Entity {
             l4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l4.png")));
             l5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/player/movements/Character_l5.png")));
             endGame = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/state/endGame.png")));
+            nextMap = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/OOP/game/resources/state/nextMap.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public void move(){
+        if (keyHandler.up.down) { // "down" means the button get pressed
+            direction = "up";
+        }
+        if (keyHandler.down.down) {
+            direction = "down";
+        }
+        if (keyHandler.left.down) {
+            direction = "left";
+        }
+        if (keyHandler.right.down) {
+            direction = "right";
+        }
 
+        if (keyHandler.down.down || keyHandler.up.down || keyHandler.left.down || keyHandler.right.down) {
+            spriteCount++;
+            if (spriteCount > 6) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 3;
+                } else if (spriteNum == 3) {
+                    spriteNum = 4;
+                } else if (spriteNum == 4) {
+                    spriteNum = 5;
+                } else if (spriteNum == 5) {
+                    spriteNum = 1;
+                }
+                spriteCount = 0;
+            }
+            collide = false;
+            gamePanel.collision.checkCollision(this);
+
+            gamePanel.eventHandler.eventChecker();
+            if (!collide) {
+                if (Objects.equals(direction, "up"))
+                    y -= speed;
+                if (Objects.equals(direction, "left"))
+                    x -= speed;
+                if (Objects.equals(direction, "right"))
+                    x += speed;
+                if (Objects.equals(direction, "down"))
+                    y += speed;
+            }
+        } else {
+            spriteNum = 1;
+        }
+    }
     public void update() {
+        if (x >= 16.5 * 48 && x <= 18 * 48 && y >= 4.5 * 48 && y <= 6 * 48) {
+            x = gamePanel.tileSize * 23;
+            y = gamePanel.tileSize * 11;
+        }
         if (x >= 27 * 48 && x <= 28.3 * 48 && y >= 13.5 * 48 && y <= 15 * 48) {
             x = gamePanel.tileSize * 29;
             y = gamePanel.tileSize * 3;
@@ -74,55 +126,19 @@ public class Player extends Entity {
             y = gamePanel.tileSize * 3;
         }
         if (keyHandler.enter.down && (x >= 28.5 * 48 && x <= 31 * 48 && y >= 12.5 * 48 && y <= 15 * 48)) {
-            direction = "";
+            direction = "right";
             state = "end";
-        } else {
-            if (keyHandler.up.down) { // "down" means the button get pressed
-                direction = "up";
+        }
+        if(keyHandler.space.down) {
+            if(Objects.equals(state, "end")){
+                gamePanel.blockManager.loadMap("/OOP/game/resources/maps/map2.txt");
+                System.out.println("map2 loaded successfully");
+                setDefaultValue();
+                state = "play";
             }
-            if (keyHandler.down.down) {
-                direction = "down";
-            }
-            if (keyHandler.left.down) {
-                direction = "left";
-            }
-            if (keyHandler.right.down) {
-                direction = "right";
-            }
-
-            if (keyHandler.down.down || keyHandler.up.down || keyHandler.left.down || keyHandler.right.down) {
-                spriteCount++;
-                if (spriteCount > 6) {
-                    if (spriteNum == 1) {
-                        spriteNum = 2;
-                    } else if (spriteNum == 2) {
-                        spriteNum = 3;
-                    } else if (spriteNum == 3) {
-                        spriteNum = 4;
-                    } else if (spriteNum == 4) {
-                        spriteNum = 5;
-                    } else if (spriteNum == 5) {
-                        spriteNum = 1;
-                    }
-                    spriteCount = 0;
-                }
-                collide = false;
-                gamePanel.collision.checkCollision(this);
-
-                gamePanel.eventHandler.eventChecker();
-                if (!collide) {
-                    if (Objects.equals(direction, "up"))
-                        y -= speed;
-                    if (Objects.equals(direction, "left"))
-                        x -= speed;
-                    if (Objects.equals(direction, "right"))
-                        x += speed;
-                    if (Objects.equals(direction, "down"))
-                        y += speed;
-                }
-            } else {
-                spriteNum = 1;
-            }
+        }
+        if(state.equals("play")) {
+            move();
         }
     }
 
@@ -131,6 +147,7 @@ public class Player extends Entity {
 //        g2d.fillRect(x, y, gamePanel.tileSize, gamePanel.tileSize);
         if (Objects.equals(state, "end")) {
             g2d.drawImage(endGame, 9 * 48, 4 * 48, null);
+            g2d.drawImage(nextMap, 12 * 48, 8 * 48, null);
         } else {
             BufferedImage image = null;
             switch (direction) {
@@ -190,86 +207,4 @@ public class Player extends Entity {
             g2d.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
         }
     }
-
-//    public void update(double time) {
-//        super.update(time);
-////        move();
-//        position.x += dx;
-//        position.y += dy;
-//    }
-
-//    @Override
-//    public void render(Graphics g) {
-////        g.drawRect((int) (position.getWorldVar().x + bounds.getxOffset()), (int) (pos.getWorldVar().y + bounds.getYOffset()), (int) bounds.getWidth(), (int) bounds.getHeight());
-//
-//        g.drawImage(move.getFrames(), (int) position.x, (int) position.y, size, size, null);
-//    }
-
-//    public void input(MouseHandler mouse, KeyHandler key) {
-//        up = key.upPressed;
-//        down = key.downPressed;
-//        left = key.leftPressed;
-//        right = key.rightPressed;
-//        attack = key.spacePressed;
-//
-//        if (mouse.getButton() == 1) {
-//        }
-//    }
-//
-//    public void move() {
-//        if (up) {
-//            dy -= acceleration;
-//            if (dy < -maxSpeed) {
-//                dy = -maxSpeed;
-//            }
-//        } else {
-//            if (dy < 0) {
-//                dy += deceleration;
-//                if (dy > 0) {
-//                    dy = 0;
-//                }
-//            }
-//        }
-//        if (down) {
-//            dy += acceleration;
-//            if (dy > maxSpeed) {
-//                dy = maxSpeed;
-//            } else {
-//                if (dy > 0) {
-//                    dy -= deceleration;
-//                    if (dy < 0) {
-//                        dy = 0;
-//                    }
-//                }
-//            }
-//        }
-//        if (left) {
-//            dx -= acceleration;
-//            if (dx < -maxSpeed) {
-//                dx = -maxSpeed;
-//            }
-//        } else {
-//            if (dx < 0) {
-//                dx += deceleration;
-//                if (dx > 0) {
-//                    dx = 0;
-//                }
-//            }
-//        }
-//        if (right) {
-//            dx += acceleration;
-//            if (dx > maxSpeed) {
-//                dx = maxSpeed;
-//            }
-//        } else {
-//            if (dx > 0) {
-//                dx -= deceleration;
-//                if (dx < 0) {
-//                    dx = 0;
-//                }
-//            }
-//        }
-
-
-//    }
 }
