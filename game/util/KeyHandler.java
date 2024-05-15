@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyHandler implements KeyListener {
-    public static List<KeyListen> listeners = new ArrayList<KeyListen>();
+    public static List<KeyListen> listeners = new ArrayList<>();
     public static class KeyListen { // so it should be static
         public int presses, absorbs;
         public boolean down, clicked;

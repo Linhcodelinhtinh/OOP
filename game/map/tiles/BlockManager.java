@@ -52,20 +52,24 @@ public class BlockManager {
     }
     public void getBlockImage(){
         try{
-            blocks[0] = new Block();
-            blocks[1] = new Block();
-            blocks[2] = new Block();
-            blocks[4] = new Block();
-            blocks[5] = new Block();
-
+            for(int i = 0; i < 16; i++) {
+                blocks[i] = new Block();
+            }
             blocks[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile.png")));
             blocks[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/wall.png")));
             blocks[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile2.png")));
-            //blocks[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile.png")));
+            blocks[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/wall2.png")));
+            blocks[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile4.png")));
             blocks[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/tile3.png")));
+            blocks[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/left_wall.png")));
+            blocks[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResource("/OOP/game/resources/blocks/right_wall.png")));
+
 
             blocks[1].isCollide = true;
-            blocks[4].isCollide = true;
+            blocks[3].isCollide = true;
+            blocks[6].isCollide = true;
+            blocks[7].isCollide = true;
+
         }catch(IOException e){
             e.printStackTrace();
         }

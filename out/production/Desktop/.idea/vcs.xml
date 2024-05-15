@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/OOP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Py/Linhhocpy/lab02-numpy-Linhcodelinhtinh" vcs="Git" />
   </component>
 </project>

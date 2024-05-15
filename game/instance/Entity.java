@@ -13,7 +13,7 @@ public class Entity {
     public String direction;
 
     BufferedImage r1, r2, r3, r4, r5, l1, l2, l3, l4, l5, u1, u2, u3, u4, u5, d1, d2, d3, d4, d5;
-
+    BufferedImage endGame;
     public int spriteCount = 0;
     public int spriteNum = 1;
 
