@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){
         player.update();
-        environmentManager.light.update(3000);
+        environmentManager.light.update(120);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);

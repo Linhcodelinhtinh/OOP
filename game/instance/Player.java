@@ -25,10 +25,10 @@ public class Player extends Entity {
 
     public void setDefaultValue() {
         // start position and status
-        x = 28 * 48; //testing case
-        y = 14 * 38;
-//        x = 100; // exact starting point
-//        y = 100;
+//        x = 28 * 48; //testing case
+//        y = 14 * 38;
+        x = 100; // exact starting point
+        y = 100;
         speed = 3;
         direction = "right";
         maxHP = 6;
