@@ -1,6 +1,6 @@
 package OOP.game;
 
-import OOP.enviroment_effects.EnvironmentManager;
+import OOP.game.enviroment_effects.EnvironmentManager;
 import OOP.game.event.EventHandler;
 import OOP.game.instance.Player;
 import OOP.game.map.Collision;

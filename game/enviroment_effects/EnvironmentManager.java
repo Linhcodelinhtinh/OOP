@@ -1,4 +1,4 @@
-package OOP.enviroment_effects;
+package OOP.game.enviroment_effects;
 
 import OOP.game.GamePanel;
 
